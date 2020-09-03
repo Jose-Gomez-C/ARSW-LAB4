@@ -80,8 +80,11 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 		return cinemas.get(name);
 	}
 	@Override
-	public Set<Cinema> getAllCinemas(){
+	public Set<Cinema> getAllCinemas() throws CinemaException{
 		Set<Cinema> todoCinemas = new HashSet<Cinema>(cinemas.values());
+		if (todoCinemas.size()==0) {
+			throw new CinemaException("No hay cinemas");
+		}
 		return todoCinemas;
 	}
 }

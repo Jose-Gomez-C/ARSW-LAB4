@@ -12,6 +12,7 @@ import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaFilter;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
+import edu.eci.arsw.cinema.persistence.CinemaServicesInterface;
 import edu.eci.arsw.cinema.persistence.CinemaFilterException;
 
 import java.util.List;
@@ -27,8 +28,8 @@ import org.springframework.stereotype.Service;
  *
  * @author cristian
  */
-@Service
-public class CinemaServices {
+@Service("cinemaServices")
+public class CinemaServices implements CinemaServicesInterface {
     @Autowired
     @Qualifier("inMemoryCinemaPersistence")
     
@@ -43,12 +44,12 @@ public class CinemaServices {
     @Qualifier("cinemaFilterDisponibilidad")
     
     CinemaFilter cfd;
-    
+    @Override
     public void addNewCinema(Cinema c) throws CinemaPersistenceException{
         cps.saveCinema(c);
     }
-    
-    public Set<Cinema> getAllCinemas(){
+    @Override
+    public Set<Cinema> getAllCinemas() throws CinemaException{
         return cps.getAllCinemas();
     }
     
@@ -58,6 +59,7 @@ public class CinemaServices {
      * @return the cinema of the given name created by the given author
      * @throws CinemaException
      */
+    @Override
     public Cinema getCinemaByName(String name){
     	Cinema resultado= null;
         try {
@@ -70,18 +72,20 @@ public class CinemaServices {
         return resultado;
     }
     
-    
+    @Override
     public void buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaException{
         cps.buyTicket(row, col, cinema, date, movieName);
     }
-    
+    @Override
     public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) {
         return cps.getFunctionsbyCinemaAndDate(cinema, date);
     }
+    @Override
     public List<CinemaFunction> filtroGenero(String fecha, String cinema, String genero) throws CinemaFilterException {
     	List<CinemaFunction> funciones = getFunctionsbyCinemaAndDate(cinema, fecha);
 		return cfg.filtros(funciones, genero);
 	}
+    @Override
     public List<CinemaFunction> filtroDisponibilida(String name, String fecha, String asientos) throws CinemaFilterException{
     	List<CinemaFunction> funciones = getFunctionsbyCinemaAndDate(name, fecha);
     	return cfd.filtros(funciones, asientos);

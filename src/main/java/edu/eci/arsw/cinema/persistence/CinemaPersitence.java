@@ -52,6 +52,6 @@ public interface CinemaPersitence {
      */
     public Cinema getCinema(String name) throws CinemaPersistenceException;
 
-	public Set<Cinema> getAllCinemas();
+	public Set<Cinema> getAllCinemas() throws CinemaException;
     
 }
