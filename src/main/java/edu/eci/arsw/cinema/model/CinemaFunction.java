@@ -17,13 +17,14 @@ import java.util.List;
  */
 public class CinemaFunction {
     
+	private int id;
     private Movie movie;
     private List<List<Boolean>> seats=new ArrayList<>();
     private String date;
     
     public CinemaFunction(){}
     
-    public CinemaFunction(Movie movie, String date){
+    public CinemaFunction(Movie movie, String date, int id ){
         this.movie=movie;
         this.date=date;
         for (int i=0;i<7;i++){

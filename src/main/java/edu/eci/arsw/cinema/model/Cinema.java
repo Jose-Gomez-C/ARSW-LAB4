@@ -34,6 +34,16 @@ public class Cinema {
     public List<CinemaFunction> getFunctions() {
         return this.functions;
     }
+    public void addFuncion(CinemaFunction funcion) {
+    	functions.add(funcion);
+    }
+    public void setFunction(CinemaFunction function){
+    	for (CinemaFunction i : functions) {
+    		if(function.getMovie().equals(i.getMovie())) {
+    			
+    		}
+    	}
+	}
 
     public void setSchedule(List<CinemaFunction> functions) {
         this.functions = functions;

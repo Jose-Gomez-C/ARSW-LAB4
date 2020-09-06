@@ -11,18 +11,24 @@ import edu.eci.arsw.cinema.model.CinemaFunction;
 @Service
 public interface CinemaServicesInterface {
 
-	List<CinemaFunction> filtroDisponibilida(String name, String fecha, String asientos) throws CinemaFilterException;
+	List<CinemaFunction> filtroDisponibilida(String name, String fecha, String asientos) throws CinemaFilterException, CinemaPersistenceException;
 
-	List<CinemaFunction> filtroGenero(String fecha, String cinema, String genero) throws CinemaFilterException;
+	List<CinemaFunction> filtroGenero(String fecha, String cinema, String genero) throws CinemaFilterException, CinemaPersistenceException;
 
-	List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date);
+	List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) throws CinemaPersistenceException;
 
 	void buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaException;
 
-	Cinema getCinemaByName(String name);
+	Cinema getCinemaByName(String name) throws CinemaPersistenceException;
 
 	Set<Cinema> getAllCinemas() throws CinemaException;
 
-	void addNewCinema(Cinema c) throws CinemaPersistenceException;
+	List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date, String movie)throws CinemaPersistenceException;
+
+	void addfuncion(String cinema, CinemaFunction funcion) throws CinemaPersistenceException;
+
+	void modFuncion(String cinema, CinemaFunction funcion);
+
+	
 
 }

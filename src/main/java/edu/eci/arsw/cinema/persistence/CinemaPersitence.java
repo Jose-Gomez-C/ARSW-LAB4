@@ -34,8 +34,9 @@ public interface CinemaPersitence {
      * @param cinema cinema's name
      * @param date date
      * @return the list of the functions of the cinema in the given date
+     * @throws CinemaPersistenceException 
      */
-    public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date);
+    public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) throws CinemaPersistenceException;
     
     /**
      * 
@@ -53,5 +54,11 @@ public interface CinemaPersitence {
     public Cinema getCinema(String name) throws CinemaPersistenceException;
 
 	public Set<Cinema> getAllCinemas() throws CinemaException;
+
+	public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date, String movie)throws CinemaPersistenceException;
+
+	void addFuncion(String cinema, CinemaFunction funcion) throws CinemaPersistenceException;
+
+	void modfuncion(String cinema, CinemaFunction funcion) throws CinemaPersistenceException;
     
 }

@@ -17,6 +17,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -35,12 +37,32 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 		//load stub data
 		String functionDate = "2018-12-18 15:30";
 		List<CinemaFunction> functions= new ArrayList<>();
-		CinemaFunction funct1 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate);
-		CinemaFunction funct2 = new CinemaFunction(new Movie("The Night","Horror"),functionDate);
+		CinemaFunction funct1 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate,1);
+		CinemaFunction funct2 = new CinemaFunction(new Movie("The Night","Horror"),functionDate,2);
 		functions.add(funct1);
 		functions.add(funct2);
 		Cinema c=new Cinema("cinemaX",functions);
 		cinemas.put("cinemaX", c);
+		functionDate = "2018-12-18 15:30";
+		functions= new ArrayList<>();
+		funct1 = new CinemaFunction(new Movie("SuperHeroes Movie 2","Action"),functionDate,1);
+		funct2 = new CinemaFunction(new Movie("The Night 2","Horror"),functionDate,2);
+		CinemaFunction funct3 = new CinemaFunction(new Movie("The Night 3","Horror"),functionDate,3);
+		functions.add(funct1);
+		functions.add(funct2);
+		functions.add(funct3);
+		Cinema d = new Cinema("Movies Medellin", functions);
+		cinemas.put("Movies Medellin", d);
+		functionDate = "2018-12-18 15:30";
+		functions= new ArrayList<>();
+		funct1 = new CinemaFunction(new Movie("SuperHeroes Movie 2","Action"),functionDate,1);
+		funct2 = new CinemaFunction(new Movie("The Night 2","Horror"),functionDate,2);
+		funct3 = new CinemaFunction(new Movie("The Night 3","Horror"),functionDate,3);
+		functions.add(funct1);
+		functions.add(funct2);
+		functions.add(funct3);
+		Cinema e=new Cinema("Movies Bogotá",functions);
+		cinemas.put("Movies Bogotá", e);
 	}    
 
 	@Override
@@ -54,12 +76,39 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 	}
 
 	@Override
-	public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) {
+	public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) throws CinemaPersistenceException {
+		if(cinemas.get(cinema) == null) {
+			throw new CinemaPersistenceException("no existe el cinema");
+		}
+		String dateFormat = "\\d{4}-\\d{1,2}-\\d{1,2}";
+		if(!Pattern.matches(dateFormat,date) ) {
+			throw new CinemaPersistenceException("El formato de la fecha esta incorrecto debe ser YYYY-MM-DD");
+		}
 		Cinema cineElegido = cinemas.get(cinema);
 		List<CinemaFunction> funcionesFecha = new ArrayList<CinemaFunction>();
 		for(CinemaFunction i : cineElegido.getFunctions()) {
-			if(i.getDate().equals(date)) {
+			if(i.getDate().contains(date)) {
 				funcionesFecha.add(i);
+			}
+		}
+		return funcionesFecha;
+	}
+	@Override
+	public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date, String movie) throws CinemaPersistenceException {
+		if(cinemas.get(cinema) == null) {
+			throw new CinemaPersistenceException("no existe el cinema");
+		}
+		String dateFormat = "\\d{4}-\\d{1,2}-\\d{1,2} \\d{1,2}:\\d{1,2}";
+		if(!Pattern.matches(dateFormat,date) ) {
+			throw new CinemaPersistenceException("El formato de la fecha esta incorrecto debe ser YYYY-MM-DD");
+		}
+		Cinema cineElegido = cinemas.get(cinema);
+		List<CinemaFunction> funcionesFecha = new ArrayList<CinemaFunction>();
+		for(CinemaFunction i : cineElegido.getFunctions()) {
+			if(i.getMovie().getName().equals(movie)){
+				if(i.getDate().equals(date)) {
+					funcionesFecha.add(i);
+				}
 			}
 		}
 		return funcionesFecha;
@@ -77,6 +126,9 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 
 	@Override
 	public Cinema getCinema(String name) throws CinemaPersistenceException {
+		if(cinemas.get(name) == null) {
+			throw new CinemaPersistenceException("no existe el cinema");
+		}
 		return cinemas.get(name);
 	}
 	@Override
@@ -87,4 +139,19 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 		}
 		return todoCinemas;
 	}
+	@Override
+	public void addFuncion(String cinema, CinemaFunction funcion) throws CinemaPersistenceException {
+		if(cinemas.get(cinema) == null) {
+			throw new CinemaPersistenceException("El cienema no exite");
+		}
+		cinemas.get(cinema).addFuncion(funcion);
+	}
+	@Override
+	public void modfuncion(String cinema, CinemaFunction funcion) throws CinemaPersistenceException {
+		if(cinemas.get(cinema) == null) {
+			throw new CinemaPersistenceException("El cienema no exite");
+		}
+		//cinemas.get(cinema).modFuncion(funcion);
+	}
 }
+
