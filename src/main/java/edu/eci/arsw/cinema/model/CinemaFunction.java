@@ -24,7 +24,7 @@ public class CinemaFunction {
     
     public CinemaFunction(){}
     
-    public CinemaFunction(Movie movie, String date, int id ){
+    public CinemaFunction(Movie movie, String date ){
         this.movie=movie;
         this.date=date;
         for (int i=0;i<7;i++){
@@ -33,7 +33,16 @@ public class CinemaFunction {
             this.seats.add(row);
         }
     }
-    
+    public void setIdFunctions(int id){
+        this.id =id;
+
+    }
+    public int getIdFunction(){
+        return id;
+    }
+
+
+
     public void buyTicket(int row,int col) throws CinemaException{
         if (seats.get(row).get(col).equals(true)){
             seats.get(row).set(col,Boolean.FALSE);

@@ -37,17 +37,17 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 		//load stub data
 		String functionDate = "2018-12-18 15:30";
 		List<CinemaFunction> functions= new ArrayList<>();
-		CinemaFunction funct1 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate,1);
-		CinemaFunction funct2 = new CinemaFunction(new Movie("The Night","Horror"),functionDate,2);
+		CinemaFunction funct1 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate);
+		CinemaFunction funct2 = new CinemaFunction(new Movie("The Night","Horror"),functionDate);
 		functions.add(funct1);
 		functions.add(funct2);
 		Cinema c=new Cinema("cinemaX",functions);
 		cinemas.put("cinemaX", c);
 		functionDate = "2018-12-18 15:30";
 		functions= new ArrayList<>();
-		funct1 = new CinemaFunction(new Movie("SuperHeroes Movie 2","Action"),functionDate,1);
-		funct2 = new CinemaFunction(new Movie("The Night 2","Horror"),functionDate,2);
-		CinemaFunction funct3 = new CinemaFunction(new Movie("The Night 3","Horror"),functionDate,3);
+		funct1 = new CinemaFunction(new Movie("SuperHeroes Movie 2","Action"),functionDate);
+		funct2 = new CinemaFunction(new Movie("The Night 2","Horror"),functionDate);
+		CinemaFunction funct3 = new CinemaFunction(new Movie("The Night 3","Horror"),functionDate);
 		functions.add(funct1);
 		functions.add(funct2);
 		functions.add(funct3);
@@ -55,9 +55,9 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 		cinemas.put("Movies Medellin", d);
 		functionDate = "2018-12-18 15:30";
 		functions= new ArrayList<>();
-		funct1 = new CinemaFunction(new Movie("SuperHeroes Movie 2","Action"),functionDate,1);
-		funct2 = new CinemaFunction(new Movie("The Night 2","Horror"),functionDate,2);
-		funct3 = new CinemaFunction(new Movie("The Night 3","Horror"),functionDate,3);
+		funct1 = new CinemaFunction(new Movie("SuperHeroes Movie 2","Action"),functionDate);
+		funct2 = new CinemaFunction(new Movie("The Night 2","Horror"),functionDate);
+		funct3 = new CinemaFunction(new Movie("The Night 3","Horror"),functionDate);
 		functions.add(funct1);
 		functions.add(funct2);
 		functions.add(funct3);
@@ -151,6 +151,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 		if(cinemas.get(cinema) == null) {
 			throw new CinemaPersistenceException("El cienema no exite");
 		}
+		cinemas.get(cinema).modFunction(funcion);
 		//cinemas.get(cinema).modFuncion(funcion);
 	}
 }

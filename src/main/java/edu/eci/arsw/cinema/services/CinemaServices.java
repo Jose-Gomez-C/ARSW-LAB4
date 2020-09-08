@@ -94,7 +94,7 @@ public class CinemaServices implements CinemaServicesInterface {
 		cps.addFuncion(cinema, funcion);
 	}
 	@Override
-	public void modFuncion(String cinema, CinemaFunction funcion) {
-		
+	public void modFuncion(String cinema, CinemaFunction funcion) throws CinemaPersistenceException {
+		cps.modfuncion(cinema,funcion);
 	}
 }

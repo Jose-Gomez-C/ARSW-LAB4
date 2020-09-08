@@ -81,12 +81,13 @@ public class CinemaAPIController {
 	@RequestMapping(value = "/{nombreFuncion}", method = RequestMethod.PUT)
 	public ResponseEntity<?> modFuncion(@PathVariable String nombreFuncion, @RequestBody CinemaFunction funciones){
 		try {
-			css.addfuncion(nombreFuncion, funciones);
+			css.modFuncion(nombreFuncion, funciones);
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (CinemaPersistenceException e) {
 			return new ResponseEntity<>( e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
+
 }
 
 

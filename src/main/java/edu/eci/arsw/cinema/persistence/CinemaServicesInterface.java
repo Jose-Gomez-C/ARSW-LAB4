@@ -27,7 +27,7 @@ public interface CinemaServicesInterface {
 
 	void addfuncion(String cinema, CinemaFunction funcion) throws CinemaPersistenceException;
 
-	void modFuncion(String cinema, CinemaFunction funcion);
+	void modFuncion(String cinema, CinemaFunction funcion) throws CinemaPersistenceException;
 
 	
 

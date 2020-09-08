@@ -13,14 +13,21 @@ import java.util.List;
  */
 public class Cinema {
     private String name;
-    private List<CinemaFunction> functions; 
+    private List<CinemaFunction> functions;
+    private int funcionActual;
     
     
     public Cinema(){}
     
     public Cinema(String name,List<CinemaFunction> functions){
+
+        funcionActual = 0;
         this.name=name;
         this.functions=functions;
+        for(CinemaFunction funciones: this.functions){
+            funciones.setIdFunctions(funcionActual);
+            funcionActual++;
+        }
     }
 
     public String getName() {
@@ -35,7 +42,9 @@ public class Cinema {
         return this.functions;
     }
     public void addFuncion(CinemaFunction funcion) {
-    	functions.add(funcion);
+    	funcion.setIdFunctions(funcionActual);
+    	funcionActual++;
+        functions.add(funcion);
     }
     public void setFunction(CinemaFunction function){
     	for (CinemaFunction i : functions) {
@@ -44,7 +53,21 @@ public class Cinema {
     		}
     	}
 	}
+    public void modFunction(CinemaFunction funcion){
+        boolean isIn  = false;
+        for(int i =0;i<functions.size();i++){
+            if(functions.get(i).getIdFunction() == funcion.getIdFunction()){
+                functions.set(i,funcion);
+                isIn = true;
+            }
+        }
+        if (!isIn) {
+            functions.add(funcion);
+        }
 
+
+
+    }
     public void setSchedule(List<CinemaFunction> functions) {
         this.functions = functions;
     }
